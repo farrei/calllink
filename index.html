@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CallLink • Chamada de Voz P2P</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- PeerJS via CDN -->
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Tela Lobby -->
+        <section id="lobby" class="screen active">
+            <div class="glass-card">
+                <h1>CallLink</h1>
+                <p class="subtitle">Chamada de voz em tempo real • Sem instalar nada</p>
+
+                <div class="id-box">
+                    <label>Seu ID de Chamada</label>
+                    <div class="id-display" id="my-id">Gerando...</div>
+                    <button id="copy-link" class="btn secondary" disabled>
+                        Copiar Link de Convite
+                    </button>
+                </div>
+
+                <div class="divider">ou</div>
+
+                <div class="join-box">
+                    <label>Entrar em uma chamada</label>
+                    <input type="text" id="remote-id" placeholder="Cole o ID do amigo aqui" autocomplete="off">
+                    <button id="call-btn" class="btn primary" disabled>
+                        Ligar Agora
+                    </button>
+                </div>
+
+                <p class="hint">Compartilhe o link ou o ID. A conexão é direta (P2P) e não passa por servidores nossos.</p>
+            </div>
+        </section>
+
+        <!-- Tela de Chamada Recebida -->
+        <section id="incoming" class="screen">
+            <div class="glass-card incoming-card">
+                <div class="incoming-icon">📞</div>
+                <h2>Chamada Recebida</h2>
+                <p class="caller-id">De: <span id="incoming-id">...</span></p>
+                <div class="incoming-actions">
+                    <button id="reject-btn" class="btn danger">Recusar</button>
+                    <button id="answer-btn" class="btn success">Atender</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Chamada Ativa -->
+        <section id="call-screen" class="screen">
+            <div class="call-header">
+                <div class="status" id="call-status">Conectando...</div>
+                <div class="timer" id="call-timer">00:00</div>
+            </div>
+
+            <div class="visualizer-container">
+                <canvas id="visualizer" width="300" height="120"></canvas>
+                <div class="wave-label">Nível de voz</div>
+            </div>
+
+            <div class="call-actions">
+                <button id="mute-btn" class="action-btn" title="Mudo">
+                    <span class="icon">🎤</span>
+                    <span class="label">Mudo</span>
+                </button>
+                <button id="speaker-btn" class="action-btn" title="Testar Áudio">
+                    <span class="icon">🔊</span>
+                    <span class="label">Testar Áudio</span>
+                </button>
+                <button id="hangup-btn" class="action-btn hangup" title="Encerrar">
+                    <span class="icon">📞</span>
+                    <span class="label">Encerrar</span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Elementos de áudio ocultos -->
+    <audio id="remote-audio" autoplay></audio>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
